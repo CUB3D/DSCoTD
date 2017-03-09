@@ -37,11 +37,11 @@ public class CodeInjectionWebViewClient extends WebViewClient
 
 		if(redirectCount >= 2)
 		{
-			MainActivity.mainActivity.finishAndRemoveTask();
+			MainActivity.mainActivity.safeExit();
 		}
 
 		//Load the js to inject
-		String content = Utils.readFileFully(R.raw.js_inject);
+		String content = Utils.readFileFully(loginPageView, R.raw.js_inject);
 		//Insert the CoTD
 		content = content.replace("PASSWORD", codeOfTheDay);
 		//Execute it

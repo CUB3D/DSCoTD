@@ -1,7 +1,5 @@
 package uk.co.cub3d.dscotd;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
@@ -9,8 +7,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
 {
-	//TODO: this should not be static
-	public static Activity mainActivity;
+	//TODO: this should not exist (needed for exiting)
+	public static MainActivity mainActivity;
 	public static ProgressBar loadingSpinner;
 	public static TextView status;
 	public static TextView cotdView;
@@ -28,23 +26,21 @@ public class MainActivity extends AppCompatActivity
 
 		mainActivity = this;
 
-		Utils.setStatus("Connecting");
+		Utils.setStatus(this, "Connecting");
 		loadingSpinner.setIndeterminate(true);
 		startConnectingThread();
 	}
 
+	//Should stop memory leaks from the static copy of this activity that is needed to kill the app completely
+	public void safeExit()
+	{
+		MainActivity.mainActivity = null;
+		this.finishAndRemoveTask();
+	}
+
 	public void showWebpage()
 	{
-		runOnUiThread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				Intent i = new Intent(mainActivity, LoginPageView.class);
-				i.putExtra(Utils.CODE_OF_THE_DAY_BUNDLE, codeOfTheDay);
-				startActivity(i);
-			}
-		});
+		runOnUiThread(new WebpageLoader(this, codeOfTheDay));
 	}
 
 	public void startConnectingThread()

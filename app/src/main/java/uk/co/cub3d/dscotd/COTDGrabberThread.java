@@ -32,7 +32,7 @@ public class COTDGrabberThread extends Thread
 	@Override
 	public void run()
 	{
-		Utils.setStatus("Downloading page");
+		Utils.setStatus(activity, "Downloading page");
 		try
 		{
 			URL url = new URL(link);
@@ -45,23 +45,23 @@ public class COTDGrabberThread extends Thread
 				content += line;
 			}
 
-			Utils.setStatus("Getting code");
+			Utils.setStatus(activity, "Getting code");
 			Pattern pattern = Pattern.compile(">[a-z]{8}<");
 			Matcher cotdMatcher = pattern.matcher(content);
 			if(cotdMatcher.find())
 			{
 				String cotd = cotdMatcher.group().substring(1, 9);
-				Utils.setCoTD(cotd);
-				Utils.setStatus("Done");
+				Utils.setCoTD(activity, cotd);
+				Utils.setStatus(activity, "Done");
 				activity.showWebpage();
 			}
 			else
 			{
-				Utils.setCoTD("Error: Unable to get cotd");
+				Utils.setCoTD(activity, "Error: Unable to get cotd");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			Utils.setCoTD("Are you connected to DSCoTD?");
+			Utils.setCoTD(activity, "Are you connected to DSCoTD?");
 		}
 	}
 }

@@ -24,7 +24,7 @@ public class LoginPageView extends AppCompatActivity
 
 		if(Utils.DEBUG)
 		{
-			webView.loadData(Utils.readFileFully(R.raw.loginhtml), "text/html", null);
+			webView.loadData(Utils.readFileFully(this, R.raw.loginhtml), "text/html", null);
 		}
 		else
 		{

@@ -1,6 +1,7 @@
 package uk.co.cub3d.dscotd;
 
 import android.app.Activity;
+import android.content.Context;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,11 +23,6 @@ public class Utils
 	private static final String WALLED_GARDEN_URL = "http://clients3.google.com/generate_204";
 	private static final int WALLED_GARDEN_SOCKET_TIMEOUT_MS = 10000;
 
-	public static void setStatus(final String newStatus)
-	{
-		setStatus(MainActivity.mainActivity, newStatus);
-	}
-
 	public static void setStatus(Activity act, final String newStatus)
 	{
 		//Make sure to only edit components on the ui thread
@@ -38,11 +34,6 @@ public class Utils
 				MainActivity.status.setText("Status: " + newStatus);
 			}
 		});
-	}
-
-	public static void setCoTD(final String newCoTD)
-	{
-		setCoTD(MainActivity.mainActivity, newCoTD);
 	}
 
 	public static void setCoTD(Activity act, final String newCoTD)
@@ -60,9 +51,9 @@ public class Utils
 		});
 	}
 
-	public static String readFileFully(int resource)
+	public static String readFileFully(Context context, int resource)
 	{
-		InputStream login = MainActivity.mainActivity.getApplicationContext().getResources().openRawResource(resource);
+		InputStream login = context.getApplicationContext().getResources().openRawResource(resource);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(login));
 
 		String content = "";
