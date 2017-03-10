@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity
 	//Should stop memory leaks from the static copy of this activity that is needed to kill the app completely
 	public void safeExit()
 	{
-		MainActivity.mainActivity = null;
 		this.finishAndRemoveTask();
 	}
 
