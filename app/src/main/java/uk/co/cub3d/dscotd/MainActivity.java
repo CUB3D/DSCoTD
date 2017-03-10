@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.TextureView;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity
 	public static TextView status;
 	public static TextView cotdView;
 	public static String codeOfTheDay = "";
+	public static TextureView touchDetectorView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -28,6 +31,19 @@ public class MainActivity extends AppCompatActivity
 		status = (TextView) findViewById(R.id.textView);
 		cotdView = (TextView) findViewById(R.id.textView2);
 		loadingSpinner = (ProgressBar) findViewById(R.id.inProgress);
+		touchDetectorView = (TextureView) findViewById(R.id.textureView);
+
+		//Hacky way of detecting whole screen touch, cover it with a translucent view and add a touch listener
+		touchDetectorView.setAlpha(0);
+		touchDetectorView.setOnTouchListener(new View.OnTouchListener()
+		{
+			@Override
+			public boolean onTouch(View view, MotionEvent motionEvent)
+			{
+				startConnectingThread();
+				return true;
+			}
+		});
 
 		mainActivity = this;
 		Settings.loadSettings(this);
@@ -35,18 +51,17 @@ public class MainActivity extends AppCompatActivity
 		Utils.setStatus(this, "Connecting");
 		loadingSpinner.setIndeterminate(true);
 
-		if(getIntent().getBooleanExtra(Utils.OPENED_AUTO_OR_NORMAL, false))
+		//Check if automatically opened
+		if(getIntent().getBooleanExtra(Utils.OPENED_AUTO, false))
 		{
+			if(!Settings.shouldAutoConnect)
+			{
+				//quit
+				this.finishAndRemoveTask();
+			}
 			//Only start connecting instantly if the app was opened automatically
 			startConnectingThread();
 		}
-	}
-
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent ev)
-	{
-		startConnectingThread();
-		return true;
 	}
 
 	@Override

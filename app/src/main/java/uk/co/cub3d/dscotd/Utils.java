@@ -18,7 +18,7 @@ public class Utils
 {
 	public static final boolean DEBUG = true;
 	public static final String CODE_OF_THE_DAY_BUNDLE = "codeOfTheDay";
-	public static final String OPENED_AUTO_OR_NORMAL = "openedAutoOrNormal";
+	public static final String OPENED_AUTO = "openedAutoOrNormal";
 
 
 	private static final String WALLED_GARDEN_URL = "http://clients3.google.com/generate_204";
