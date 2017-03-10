@@ -34,10 +34,12 @@ public class WifiReceiver extends BroadcastReceiver
 			//Who's bright idea was it to return a string SURROUNDED BY QUOTES
 			if((ssid.equals(debugWIFISSID) && Utils.DEBUG) || ssid.equals(realWIFISSID))
 			{
-				if(Utils.isWalledGardenConnection())
+				//Ignore walled garden check if debug mode is on
+				if(Utils.isWalledGardenConnection() || Utils.DEBUG)
 				{
 					Toast.makeText(context, "Logging in", Toast.LENGTH_SHORT).show();
 					Intent i = new Intent(context, MainActivity.class);
+					i.putExtra(Utils.OPENED_AUTO_OR_NORMAL, true);
 					context.startActivity(i);
 				}
 			}
