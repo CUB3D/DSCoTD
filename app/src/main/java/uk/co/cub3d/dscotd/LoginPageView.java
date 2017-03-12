@@ -22,7 +22,7 @@ public class LoginPageView extends AppCompatActivity
 
 		webView.setWebViewClient(new CodeInjectionWebViewClient(this, codeOfTheDay));
 
-		if(Utils.DEBUG)
+		if(Settings.debug)
 		{
 			webView.loadData(Utils.readFileFully(this, R.raw.loginhtml), "text/html", null);
 		}

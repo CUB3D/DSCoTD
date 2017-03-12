@@ -21,6 +21,20 @@ public class SettingsActivity extends AppCompatActivity
 			public void onCheckedChanged(CompoundButton compoundButton, boolean b)
 			{
 				Settings.shouldAutoConnect = b;
+				Settings.saveSettings(compoundButton.getContext());
+			}
+		});
+
+
+		Switch debug = (Switch) findViewById(R.id.debug_mode_switch);
+		debug.setChecked(Settings.debug);
+		debug.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+			{
+				Settings.debug = b;
+				Settings.saveSettings(compoundButton.getContext());
 			}
 		});
 	}

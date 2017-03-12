@@ -8,7 +8,7 @@
     tools:context="uk.co.cub3d.dscotd.SettingsActivity">
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/debug_mode_switch"
         android:layout_width="395dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -49,6 +49,6 @@
         android:layout_marginStart="16dp"
         android:text="Do not enable this unless you know what it does and have a need to, it could make it impossible to open the app"
         android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintBottom_toTopOf="@+id/switch1"
+        app:layout_constraintBottom_toTopOf="@+id/debug_mode_switch"
         app:layout_constraintLeft_toLeftOf="parent"/>
 </android.support.constraint.ConstraintLayout>

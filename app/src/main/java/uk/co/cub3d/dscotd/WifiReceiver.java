@@ -37,10 +37,10 @@ public class WifiReceiver extends BroadcastReceiver
 			if(Settings.shouldAutoConnect)
 			{
 				//Who's bright idea was it to return a string SURROUNDED BY QUOTES
-				if((ssid.equals(debugWIFISSID) && Utils.DEBUG) || ssid.equals(realWIFISSID))
+				if((ssid.equals(debugWIFISSID) && Settings.debug) || ssid.equals(realWIFISSID))
 				{
 					//Ignore walled garden check if debug mode is on
-					if(Utils.isWalledGardenConnection() || Utils.DEBUG)
+					if(Utils.isWalledGardenConnection() || Settings.debug)
 					{
 						Toast.makeText(context, "Logging in", Toast.LENGTH_SHORT).show();
 						Intent i = new Intent(context, MainActivity.class);

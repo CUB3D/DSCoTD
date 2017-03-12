@@ -19,7 +19,7 @@ public class COTDGrabberThread extends Thread
 	{
 		this.activity = activity;
 
-		if(Utils.DEBUG)
+		if(Settings.debug)
 		{
 			link = activity.getResources().getString(R.string.DBG_COTD_PAGE_URL);
 		}

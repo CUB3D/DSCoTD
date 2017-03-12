@@ -16,7 +16,6 @@ import java.net.URL;
 
 public class Utils
 {
-	public static final boolean DEBUG = true;
 	public static final String CODE_OF_THE_DAY_BUNDLE = "codeOfTheDay";
 	public static final String OPENED_AUTO = "openedAutoOrNormal";
 
