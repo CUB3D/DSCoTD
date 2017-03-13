@@ -16,10 +16,10 @@
         android:layout_marginTop="490dp"
         android:text="Debug mode"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch3"/>
+        app:layout_constraintTop_toBottomOf="@+id/walled_garden_check_switch"/>
 
     <Switch
-        android:id="@+id/switch3"
+        android:id="@+id/walled_garden_check_switch"
         android:layout_width="395dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"

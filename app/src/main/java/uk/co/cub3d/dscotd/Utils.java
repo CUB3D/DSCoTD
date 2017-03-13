@@ -75,6 +75,10 @@ public class Utils
 	//Don't sue me plz
 	public static boolean isWalledGardenConnection()
 	{
+		if(!Settings.walledGardenCheck)
+		{
+			return false;
+		}
 		HttpURLConnection urlConnection = null;
 		try {
 			URL url = new URL(WALLED_GARDEN_URL); // "http://clients3.google.com/generate_204"

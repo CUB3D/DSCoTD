@@ -37,6 +37,18 @@ public class SettingsActivity extends AppCompatActivity
 				Settings.saveSettings(compoundButton.getContext());
 			}
 		});
+
+		Switch walledGardenCheck = (Switch) findViewById(R.id.walled_garden_check_switch);
+		walledGardenCheck.setChecked(Settings.walledGardenCheck);
+		walledGardenCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+			{
+				Settings.walledGardenCheck = b;
+				Settings.saveSettings(compoundButton.getContext());
+			}
+		});
 	}
 
 	@Override
