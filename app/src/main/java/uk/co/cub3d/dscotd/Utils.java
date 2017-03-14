@@ -2,6 +2,7 @@ package uk.co.cub3d.dscotd;
 
 import android.app.Activity;
 import android.content.Context;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -98,6 +99,15 @@ public class Utils
 			if (urlConnection != null) {
 				urlConnection.disconnect();
 			}
+		}
+	}
+
+	public static void debugLog(Context context, String s)
+	{
+		if(Settings.debug)
+		{
+			Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+			System.err.println(s);
 		}
 	}
 }

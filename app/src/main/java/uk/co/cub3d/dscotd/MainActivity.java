@@ -11,6 +11,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -54,12 +55,8 @@ public class MainActivity extends AppCompatActivity
 		//Check if automatically opened
 		if(getIntent().getBooleanExtra(Utils.OPENED_AUTO, false))
 		{
-			if(!Settings.shouldAutoConnect)
-			{
-				//quit
-				this.finishAndRemoveTask();
-			}
 			//Only start connecting instantly if the app was opened automatically
+			Toast.makeText(this, "Logging in", Toast.LENGTH_SHORT).show();
 			startConnectingThread();
 		}
 	}
