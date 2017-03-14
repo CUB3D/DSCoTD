@@ -72,7 +72,7 @@ public class Utils
 		return content;
 	}
 
-	//I did not write this, it was originally part of AOSP, I got it from here: https://stackoverflow.com/a/14030276
+	//I did not write this, I only adapted it, it was originally part of AOSP (I think), I got it from here originally: https://stackoverflow.com/a/14030276
 	//Don't sue me plz
 	public static boolean isWalledGardenConnection()
 	{
@@ -93,7 +93,7 @@ public class Utils
 			// We got a valid response, but not from the real google
 			return urlConnection.getResponseCode() != 204;
 		} catch (IOException e) {
-				System.out.println("Walled garden check - probably not a portal: exception " + e);
+			e.printStackTrace();
 			return false;
 		} finally {
 			if (urlConnection != null) {
