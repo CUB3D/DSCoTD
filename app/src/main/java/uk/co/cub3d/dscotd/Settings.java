@@ -29,5 +29,6 @@ public class Settings
 		editor.putBoolean("shouldAutoConnect", shouldAutoConnect);
 		editor.putBoolean("shouldCheckForWalledGarden", walledGardenCheck);
 		editor.putBoolean("debug", debug);
+		editor.commit();
 	}
 }
