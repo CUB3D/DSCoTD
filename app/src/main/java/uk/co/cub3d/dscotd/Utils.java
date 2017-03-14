@@ -75,9 +75,10 @@ public class Utils
 	//Don't sue me plz
 	public static boolean isWalledGardenConnection()
 	{
+		//If the check is off then assume always in a walled garden
 		if(!Settings.walledGardenCheck)
 		{
-			return false;
+			return true;
 		}
 		HttpURLConnection urlConnection = null;
 		try {
