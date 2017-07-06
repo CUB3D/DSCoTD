@@ -31,12 +31,17 @@ public class WifiReceiver extends BroadcastReceiver
 			//SSID of school
 			final String realWIFISSID = resources.getString(R.string.REAL_WIFI_SSID);
 
-			//Load the settings to check if auto logging in is enabled
-			Settings.loadSettings(context);
-
-			if(Settings.shouldAutoConnect)
+			//Who's bright idea was it to return a string SURROUNDED BY QUOTES
+			//I bet the same person decided that quotes in value xml's are stripped
+			if(ssid == (Settings.debug ? debugWIFISSID : realWIFISSID))
 			{
-				new Thread(new WifiReceiverLoginRunnable(context, Settings.debug ? debugWIFISSID : realWIFISSID)).start();
+				//Load the settings to check if auto logging in is enabled
+				Settings.loadSettings(context);
+
+				if(Settings.shouldAutoConnect)
+				{
+					new Thread(new WifiReceiverLoginRunnable(context)).start();
+				}
 			}
 		}
 	}
