@@ -6,6 +6,8 @@ import android.webkit.WebView;
 
 public class LoginPageView extends AppCompatActivity
 {
+	public static final int REQUEST_STANDARD = 1;
+
 	public WebView webView;
 	public String codeOfTheDay = "";
 

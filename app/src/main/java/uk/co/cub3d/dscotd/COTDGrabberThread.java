@@ -53,7 +53,6 @@ public class COTDGrabberThread extends Thread
 				String cotd = cotdMatcher.group().substring(1, 9);
 				Utils.setCoTD(activity, cotd);
 				Utils.setStatus(activity, "Done");
-				activity.showWebpage();
 			}
 			else
 			{

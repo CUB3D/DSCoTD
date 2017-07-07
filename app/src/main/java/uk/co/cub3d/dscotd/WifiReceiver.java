@@ -33,7 +33,7 @@ public class WifiReceiver extends BroadcastReceiver
 
 			//Who's bright idea was it to return a string SURROUNDED BY QUOTES
 			//I bet the same person decided that quotes in value xml's are stripped
-			if(ssid == (Settings.debug ? debugWIFISSID : realWIFISSID))
+			if(ssid.equals(Settings.debug ? debugWIFISSID : realWIFISSID))
 			{
 				//Load the settings to check if auto logging in is enabled
 				Settings.loadSettings(context);

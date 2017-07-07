@@ -1,5 +1,6 @@
 package uk.co.cub3d.dscotd;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +18,13 @@ public class MainActivity extends AppCompatActivity
 {
 	//TODO: this should not exist (needed for exiting)
 	public static MainActivity mainActivity;
-	public static ProgressBar loadingSpinner;
+	public ProgressBar loadingSpinner;
 	public static TextView status;
 	public static TextView cotdView;
 	public static String codeOfTheDay = "";
-	public static TextureView touchDetectorView;
+	public TextureView touchDetectorView;
+
+	public long timeOfLastTouchEvent = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -41,7 +44,9 @@ public class MainActivity extends AppCompatActivity
 			@Override
 			public boolean onTouch(View view, MotionEvent motionEvent)
 			{
-				startConnectingThread();
+				if(motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+					spawnWebpageLoaderThread();
+				}
 				return true;
 			}
 		});
@@ -57,8 +62,9 @@ public class MainActivity extends AppCompatActivity
 		{
 			//Only start connecting instantly if the app was opened automatically
 			Toast.makeText(this, "Logging in", Toast.LENGTH_SHORT).show();
-			startConnectingThread();
+			spawnWebpageLoaderThread();
 		}
+		spwanCOTDGrabberThread();
 	}
 
 	@Override
@@ -83,18 +89,29 @@ public class MainActivity extends AppCompatActivity
 		return false;
 	}
 
-	//Should stop memory leaks from the static copy of this activity that is needed to kill the app completely
-	public void safeExit()
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		this.finishAndRemoveTask();
+		if(requestCode == LoginPageView.REQUEST_STANDARD)
+		{
+			if(resultCode == Activity.RESULT_OK)
+			{
+				this.finish();
+			}
+		}
 	}
 
-	public void showWebpage()
+	public void spawnWebpageLoaderThread()
 	{
-		runOnUiThread(new WebpageLoader(this, codeOfTheDay));
+		// If unintialized or if the screen hasn't been touched for 300 ms
+		if(timeOfLastTouchEvent == 0 || (System.currentTimeMillis() - timeOfLastTouchEvent) >= 300)
+		{
+			timeOfLastTouchEvent = System.currentTimeMillis();
+			runOnUiThread(new WebpageLoader(this));
+		}
 	}
 
-	public void startConnectingThread()
+	public void spwanCOTDGrabberThread()
 	{
 		new COTDGrabberThread(this).start();
 	}
