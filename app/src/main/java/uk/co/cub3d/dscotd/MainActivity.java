@@ -14,6 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import uk.co.cub3d.dscotd.codeGrabber.COTDGrabberThread;
+import uk.co.cub3d.dscotd.codeGrabber.CodeGrabberThreadFactory;
+
 public class MainActivity extends AppCompatActivity
 {
 	//TODO: this should not exist (needed for exiting)
@@ -21,7 +24,6 @@ public class MainActivity extends AppCompatActivity
 	public ProgressBar loadingSpinner;
 	public static TextView status;
 	public static TextView cotdView;
-	public static String codeOfTheDay = "";
 	public TextureView touchDetectorView;
 
 	public long timeOfLastTouchEvent = 0;
@@ -64,7 +66,8 @@ public class MainActivity extends AppCompatActivity
 			Toast.makeText(this, "Logging in", Toast.LENGTH_SHORT).show();
 			spawnWebpageLoaderThread();
 		}
-		spwanCOTDGrabberThread();
+
+		CodeGrabberThreadFactory.getInstance(this).spawnPollerThread(this);
 	}
 
 	@Override
@@ -109,10 +112,5 @@ public class MainActivity extends AppCompatActivity
 			timeOfLastTouchEvent = System.currentTimeMillis();
 			runOnUiThread(new WebpageLoader(this));
 		}
-	}
-
-	public void spwanCOTDGrabberThread()
-	{
-		new COTDGrabberThread(this).start();
 	}
 }

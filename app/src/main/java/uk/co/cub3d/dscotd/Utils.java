@@ -39,8 +39,6 @@ public class Utils
 
 	public static void setCoTD(Activity act, final String newCoTD)
 	{
-		MainActivity.codeOfTheDay = newCoTD;
-
 		//Make sure to only edit components on the ui thread
 		act.runOnUiThread(new Runnable()
 		{

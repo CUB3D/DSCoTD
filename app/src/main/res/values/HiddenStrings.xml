@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="DBG_WIFI_SSID">\"SKY70767\"</string>
+    <string name="REAL_WIFI_SSID">\"DSCoTD\"</string>
+    <string name="COTD_ENTRY_PAGE_URL">http://10.7.104.19/guest/index_cotd.php</string>
+    <string name="DBG_COTD_PAGE_URL">http://192.168.1.72/fakeDSCOTD.html</string>
+    <string name="REAL_COTD_PAGE_URL">http://guestwifi.discoveryschool.org.uk/cotd/?id=01234</string>
+</resources>

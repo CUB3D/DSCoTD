@@ -1,4 +1,4 @@
-package uk.co.cub3d.dscotd;
+package uk.co.cub3d.dscotd.codeGrabber;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,26 +13,18 @@ import java.util.regex.Pattern;
 public class COTDGrabberThread extends Thread
 {
 	public String link = "";
-	public MainActivity activity;
+	public CodeGrabberThreadFactory parent;
 
-	public COTDGrabberThread(MainActivity activity)
+	public COTDGrabberThread(String urlToGrab, CodeGrabberThreadFactory parent)
 	{
-		this.activity = activity;
-
-		if(Settings.debug)
-		{
-			link = activity.getResources().getString(R.string.DBG_COTD_PAGE_URL);
-		}
-		else
-		{
-			link = activity.getResources().getString(R.string.REAL_COTD_PAGE_URL);
-		}
+		System.err.println("Start COTDGRABTHRED");
+		this.link = urlToGrab;
+		this.parent = parent;
 	}
 
 	@Override
 	public void run()
 	{
-		Utils.setStatus(activity, "Downloading page");
 		try
 		{
 			URL url = new URL(link);
@@ -45,22 +37,20 @@ public class COTDGrabberThread extends Thread
 				content += line;
 			}
 
-			Utils.setStatus(activity, "Getting code");
 			Pattern pattern = Pattern.compile(">[a-z]{8}<");
 			Matcher cotdMatcher = pattern.matcher(content);
 			if(cotdMatcher.find())
 			{
-				String cotd = cotdMatcher.group().substring(1, 9);
-				Utils.setCoTD(activity, cotd);
-				Utils.setStatus(activity, "Done");
+				parent.code = cotdMatcher.group().substring(1, 9);
+				parent.threadResponse = CodeGrabberThreadFactory.THREAD_RESPONCE_GOOD;
 			}
 			else
 			{
-				Utils.setCoTD(activity, "Error: Unable to get cotd");
+				parent.threadResponse = CodeGrabberThreadFactory.THREAD_RESPONCE_ERROR_NOCODE;
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			Utils.setCoTD(activity, "Are you connected to DSCoTD?");
+			parent.threadResponse = CodeGrabberThreadFactory.THREAD_RESPONCE_ERROR_WRONGNETWORK;
 		}
 	}
 }
